@@ -1,0 +1,40 @@
+type Manny @entity {
+  id: ID!
+
+  name: String
+  tokenId: Int
+  description: String
+
+  image: String
+  avatarUrl: String
+  textureUrl: String
+  externalUrl: String
+  animationUrl: String
+  iframeUrl: String
+
+  attributes: [Trait!]!
+
+  owner: Wallet!
+  minted: BigInt!
+  updates: Int!
+  lastUpdated: BigInt!
+}
+
+type Wallet @entity {
+  id: ID!
+  mannys: [Manny!]! @derivedFrom(field: "owner")
+}
+
+type Game @entity {
+  id: ID!
+  totalMannys: Int!
+}
+
+type Trait @entity {
+  id: ID!
+
+  traitType: String!
+  value: String!
+
+  mannys: [Manny!]! @derivedFrom(field: "attributes")
+}
